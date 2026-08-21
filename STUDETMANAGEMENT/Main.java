@@ -6,8 +6,8 @@ public class Main {
     public static int menu(Scanner input, int choice) {
 
         System.out.println("===== STUDENT MANAGEMENT =====");
-        System.out.println("1. ADD STUDENT");
-        System.out.println("2. View ALL STUDENT");
+        System.out.println("1. ADD STUDENT.");
+        System.out.println("2. View ALL STUDENT.");
         System.out.println("3. Search Student");
         System.out.println("4. Update Student");
         System.out.println("5. Delete Student");

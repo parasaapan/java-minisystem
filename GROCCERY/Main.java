@@ -4,12 +4,12 @@ public class Main {
 
     public static void menu() {
         System.out.println("===== GROCERY POS ===== ");
-        System.out.println("1. View Products");
-        System.out.println("2. Add Item to the Cart");
-        System.out.println("3. Remove Item from Cart");
-        System.out.println("4. View Cart");
-        System.out.println("5. Checkout");
-        System.out.println("6. Exit");
+        System.out.println("1. View Products.");
+        System.out.println("2. Add Item to the Cart.");
+        System.out.println("3. Remove Item from Cart.");
+        System.out.println("4. View Cart.");
+        System.out.println("5. Checkout.");
+        System.out.println("6. Exit.");
 
         System.out.print("ENTER CHOICE: ");
     }
