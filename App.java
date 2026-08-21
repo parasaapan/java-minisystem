@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main{
+public class App{
 
     public static int setupPin(Scanner input) {
         int validPin = 0;
