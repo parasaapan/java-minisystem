@@ -1,4 +1,5 @@
 package STUDETMANAGEMENT;
+
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +15,7 @@ public class Main {
         System.out.println("6. Student Statistics");
         System.out.println("7. Sort Students");
         System.out.println("8. Exit");
+        System.out.print("ENTER CHOICE: ");
         choice = input.nextInt();
 
         return choice;
@@ -124,15 +126,15 @@ public class Main {
                 break;
             }
         }
-        if(!isFound) {
-        System.out.println("STUDENT NOT FOUND");
+        if (!isFound) {
+            System.out.println("STUDENT NOT FOUND");
         }
     }
 
     public static void Update_Student(String[] StudentId, String[] Name, int[] Age, String[] Program,
             int[] grade, int studentcount, Scanner input) {
-       
-                String id;
+
+        String id;
 
         System.out.println("ENTER ID: ");
         id = input.next();
@@ -151,70 +153,109 @@ public class Main {
             }
         }
 
-        if(isFound) {
-             while (true) {
-            boolean istrue = false;
-            System.out.println("STUDENT NEW ID: ");
-           String newId = input.next();
+        if (isFound) {
+            while (true) {
+                boolean istrue = false;
+                System.out.println("STUDENT NEW ID: ");
+                String newId = input.next();
 
-            for (int i = 0; i < studentcount; i++) {
-                if (newId.equals(StudentId[i])) {
-                    istrue = true;
+                for (int i = 0; i < studentcount; i++) {
+                    if (newId.equals(StudentId[i])) {
+                        istrue = true;
+                        break;
+                    }
+
+                }
+
+                if (!istrue) {
+                    StudentId[index] = newId;
                     break;
                 }
 
+                System.out.println("STUDENT ID ALREADY EXISTING");
             }
 
-            if (!istrue) {
-                StudentId[index] = newId;
-                break;
+            input.nextLine();
+
+            while (true) {
+                System.out.println("NEW Name: ");
+                Name[index] = input.nextLine();
+                if (Name[index] != "") {
+                    break;
+                }
+
+                System.out.println("NAME CANNOT BE EMPTY");
             }
 
-            System.out.println("STUDENT ID ALREADY EXISTING");
-        }
-
-        input.nextLine();
-
-        while (true) {
-            System.out.println("NEW Name: ");
-            Name[index] = input.nextLine();
-            if (Name[index] != "") {
-                break;
+            while (true) {
+                System.out.println("NEW AGE: ");
+                Age[index] = input.nextInt();
+                if (Age[index] >= 15 && Age[index] <= 100) {
+                    break;
+                }
+                System.out.println("INVALID AGE");
             }
 
-            System.out.println("NAME CANNOT BE EMPTY");
-        }
+            input.nextLine();
 
-        while (true) {
-            System.out.println("NEW AGE: ");
-            Age[index] = input.nextInt();
-            if (Age[index] >= 15 && Age[index] <= 100) {
-                break;
-            }
-            System.out.println("INVALID AGE");
-        }
+            while (true) {
+                System.out.println("New Program: ");
+                Program[index] = input.nextLine();
+                if (Program[index] != "") {
+                    break;
+                }
 
-        input.nextLine();
-
-        while (true) {
-            System.out.println("New Program: ");
-            Program[index] = input.nextLine();
-            if (Program[index] != "") {
-                break;
+                System.out.println("PROGRAM CANNOT BE EMPTY");
             }
 
-            System.out.println("PROGRAM CANNOT BE EMPTY");
+            while (true) {
+                System.out.println("NEW GRADE: ");
+                grade[index] = input.nextInt();
+                if (grade[index] >= 0 && grade[index] <= 100) {
+                    break;
+                }
+                System.out.println("INVALID GRADE!! (0-100) RANGE");
+            }
+        }
+    }
+
+    public static int Remove_Student(String[] StudentId, String[] Name, int[] Age, String[] Program,
+            int[] grade, int studentcount, Scanner input) {
+
+        int studentRemove = studentcount;
+        String id;
+        boolean isfound = false;
+        int index = 0;
+
+        
+        System.out.print("ENTER ID TO REMOVE: ");
+        id = input.next();
+        for(int i = 0; i < studentcount; i++) {
+            if(id.equals(StudentId[i])) {
+                isfound = true;
+                index = i;
+            }
+        }
+        if(!isfound) {
+            System.out.println("STUDENT NOT FOUND");
+
+        } else {
+
+        for(int i = index; i < studentcount - 1; i++) {
+            StudentId[i] = StudentId[i + 1];
+            Name[i] = Name[i+1];
+            Age[i] = Age[i+1];
+            Program[i] = Program[i + 1];
+            grade[i] = grade[i+1];
         }
 
-        while (true) {
-            System.out.println("NEW GRADE: ");
-            grade[index] = input.nextInt();
-            if (grade[index] >= 0 && grade[index] <= 100) {
-                break;
-            }
-            System.out.println("INVALID GRADE!! (0-100) RANGE");
-        }
-        }
+        studentRemove--;
+        System.out.println("STUDENT HAS BEEN REMOVE");
+    }   
+
+
+
+        return studentRemove;
     }
 
     public static void main(String[] args) {
@@ -227,8 +268,6 @@ public class Main {
         int[] Age = new int[100];
         String[] Program = new String[100];
         int[] grade = new int[100];
-
-        
 
         do {
             choice = menu(input, choice);
@@ -259,16 +298,26 @@ public class Main {
 
                 case 4:
 
-                   if (CheckStudent(studentcount)) {
+                    if (CheckStudent(studentcount)) {
                         System.out.println("NO STUDENT ADD FIRST");
                         break;
-                    } 
-                    
+                    }
+
                     Update_Student(StudentId, Name, Age, Program, grade, studentcount, input);
 
                     break;
 
                 case 5:
+                    if (CheckStudent(studentcount)) {
+                        System.out.println("NO STUDENT ADD FIRST");
+                        break;
+                    }
+                    View_Student(StudentId, Name, Age, Program, grade, studentcount);
+                    studentcount = Remove_Student(StudentId, Name, Age, Program, grade, studentcount, input);
+
+                    
+
+
 
                     break;
 
