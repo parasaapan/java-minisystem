@@ -50,9 +50,9 @@ public class App{
         System.out.println("5. CHANGE PIN");
         System.out.println("6. EXIT");
 
-        System.out.print("ENTER CHOICE");
+        System.out.print("ENTER CHOICE: ");
     }
-
+    
     // deposit
     public static double Deposit(Scanner input, double balance ) {
         double deposit = 0;
@@ -132,7 +132,9 @@ public class App{
         return ChangePIN;
     }
 
-
+    public static void hello () {
+        System.out.println("NOT SURE PA THO");
+    }
     
 
     public static void main(String[] args) {
