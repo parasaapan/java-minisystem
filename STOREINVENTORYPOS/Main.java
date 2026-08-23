@@ -221,6 +221,7 @@ public class Main {
         String[] productName = new String[100];
         double[] price = new double[100];
         int[] stock = new int[100];
+        int[] totalSold = new int[100];
 
         int productcount = 0;
 
