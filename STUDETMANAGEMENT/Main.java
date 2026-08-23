@@ -1,5 +1,6 @@
 package STUDETMANAGEMENT;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -12,9 +13,8 @@ public class Main {
         System.out.println("3. Search Student");
         System.out.println("4. Update Student");
         System.out.println("5. Delete Student");
-        System.out.println("6. Student Statistics");
-        System.out.println("7. Sort Students");
-        System.out.println("8. Exit");
+        System.out.println("6. Sort Students");
+        System.out.println("7. Exit");
         System.out.print("ENTER CHOICE: ");
         choice = input.nextInt();
 
@@ -227,41 +227,65 @@ public class Main {
         boolean isfound = false;
         int index = 0;
 
-        
         System.out.print("ENTER ID TO REMOVE: ");
         id = input.next();
-        for(int i = 0; i < studentcount; i++) {
-            if(id.equals(StudentId[i])) {
+        for (int i = 0; i < studentcount; i++) {
+            if (id.equals(StudentId[i])) {
                 isfound = true;
                 index = i;
             }
         }
-        if(!isfound) {
+        if (!isfound) {
             System.out.println("STUDENT NOT FOUND");
 
         } else {
 
-        for(int i = index; i < studentcount - 1; i++) {
-            StudentId[i] = StudentId[i + 1];
-            Name[i] = Name[i+1];
-            Age[i] = Age[i+1];
-            Program[i] = Program[i + 1];
-            grade[i] = grade[i+1];
+            for (int i = index; i < studentcount - 1; i++) {
+                StudentId[i] = StudentId[i + 1];
+                Name[i] = Name[i + 1];
+                Age[i] = Age[i + 1];
+                Program[i] = Program[i + 1];
+                grade[i] = grade[i + 1];
+            }
+
+            studentRemove--;
+            System.out.println("STUDENT HAS BEEN REMOVE");
         }
-
-        studentRemove--;
-        System.out.println("STUDENT HAS BEEN REMOVE");
-    }   
-
-
 
         return studentRemove;
     }
+
+    public static int Sortmenu(int choicemenu,Scanner input) {
+
+        System.out.println("==== SORT ====");
+        System.out.println();
+        System.out.println("1. Grade");
+        System.out.println("2. Name ");
+        System.out.print("ENTER CHOICE: ");
+        choicemenu = input.nextInt();
+
+        return choicemenu;
+    }
+
+    public static void SortGrade(int[] grade, int studentcount) {
+
+        int[] copy_of_Grades = new int[studentcount];
+        for(int i = 0; i < studentcount; i++) {
+            copy_of_Grades[i] = grade[i];
+        }
+        Arrays.sort(copy_of_Grades);
+        System.out.println(Arrays.toString(copy_of_Grades));
+    }
+
+    
+
+    
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int choice = 0;
         int studentcount = 0;
+        int choicemenu = 0;
 
         String[] StudentId = new String[100];
         String[] Name = new String[100];
@@ -315,21 +339,28 @@ public class Main {
                     View_Student(StudentId, Name, Age, Program, grade, studentcount);
                     studentcount = Remove_Student(StudentId, Name, Age, Program, grade, studentcount, input);
 
-                    
-
-
-
                     break;
 
                 case 6:
 
+                    if(CheckStudent(studentcount)) {
+                        System.out.println("NO STUDENT ADD FIRST");
+                        break;
+                    }
+
+                    choicemenu = Sortmenu(choicemenu, input);
+                    if(choicemenu == 1) {
+                        SortGrade(grade);   
+                    } else if (choicemenu == 2) {
+
+                    } else {
+                        System.out.println("INVALID INPUUT");
+                    }
+ 
+
                     break;
 
                 case 7:
-
-                    break;
-
-                case 8:
                     System.out.println("PROGRAM EXIT");
                     break;
 
@@ -338,7 +369,7 @@ public class Main {
                     System.out.println("INVALID INPUT");
                     break;
             }
-        } while (choice != 8);
+        } while (choice != 7);
 
     }
 }
