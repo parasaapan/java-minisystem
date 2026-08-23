@@ -45,7 +45,7 @@ public class Main {
 
     public static int Addproduct(String[] productId, String[] productName, double[] price, int[] stock,
             int productcount, Scanner input) {
-                input.nextLine();
+        input.nextLine();
         while (true) {
             boolean istrue = false;
 
@@ -73,50 +73,147 @@ public class Main {
 
         input.nextLine();
 
-        while(true) {
+        while (true) {
             System.out.print("ENTER PRODUCT NAME: ");
             productName[productcount] = input.nextLine();
 
-            if(productName[productcount] != "") {
+            if (productName[productcount] != "") {
                 break;
             }
 
             System.out.println("PRODUCT NAME CANNOT BE EMPTY");
         }
 
-        while(true) {
+        while (true) {
             System.out.print("ENTER PRICE OF THIS PRODUCT: ");
             price[productcount] = input.nextDouble();
-            if(price[productcount] > 0) {
+            if (price[productcount] > 0) {
                 break;
             }
 
             System.out.println("CANNOT BE NEGATIVE");
         }
 
-         while(true) {
+        while (true) {
             System.out.print("ENTER STOCK OF THIS PRODUCT: ");
             stock[productcount] = input.nextInt();
-            if(stock[productcount] >= 0) {
+            if (stock[productcount] >= 0) {
                 break;
             }
 
             System.out.println("CANNOT BE NEGATIVE");
         }
-
-
-
 
         return productcount + 1;
     }
 
+    // search product
 
+    public static int Search_submenu(int searcchoice) {
 
+        System.out.println("1. SEARCH BY ID");
+        System.out.println("2. SEARCH BY NAME");
+        System.out.println("3. BACK");
 
+        return searcchoice;
+    }
+
+    // SEARCH BY ID
+
+    public static void Searchby_ID(String[] productId, String[] productName, double[] price, int[] stock,
+            int productcount, Scanner input) {
+        String id;
+        boolean isfound = false;
+
+        System.out.println("ENTER PRODUCT ID");
+        id = input.next();
+
+        for (int i = 0; i < productcount; i++) {
+            if (id.equals(productId[i])) {
+                System.out.println("PRODUCT FOUND");
+                System.out.println("NAME: " + productName[i]);
+                System.out.println("PRICE: " + price[i]);
+                System.out.println("STOCKS: " + stock[i]);
+                isfound = true;
+                break;
+            }
+        }
+
+        if (!isfound) {
+            System.out.println("NOT FOUND");
+        }
+    }
+
+    // SEARCH BY NAME
+
+    public static void Searchby_Name(String[] productId, String[] productName, double[] price, int[] stock,
+            int productcount, Scanner input) {
+        String name;
+        boolean isfound = false;
+
+        input.nextLine();
+
+        System.out.println("ENTER PRODUCT NAME");
+        name = input.nextLine();
+
+        for (int i = 0; i < productcount; i++) {
+            if (name.equalsIgnoreCase(productName[i])) {
+                System.out.println("PRODUCT FOUND");
+                System.out.println("ID: " + productName[i]);
+                System.out.println("PRICE: " + price[i]);
+                System.out.println("STOCKS: " + stock[i]);
+                isfound = true;
+                break;
+            }
+        }
+
+        if (!isfound) {
+            System.out.println("NOT FOUND");
+        }
+    }
+
+    // reStock product
+
+    public static void ReStock(int[] stock, String[] productId, int productcount, Scanner input) {
+        String id;
+        boolean isfound = false;
+        int productadd = 0;
+        int index = 0;
+
+        System.out.println("ENTER PRODUCT ID");
+        id = input.next();
+
+        for (int i = 0; i < productcount; i++) {
+            if (id.equals(productId[i])) {
+                System.out.println("PRODUCT FOUND");
+                System.out.println("CURRENT STOCKS: " + stock[i]);
+                index = i;
+                isfound = true;
+                break;
+            }
+        }
+
+        if (!isfound) {
+            System.out.println("NOT FOUND");
+        } else {
+            while (true) {
+                System.out.print("ENTER QUANTITY TO ADD: ");
+                productadd = input.nextInt();
+                if (productadd > 0) {
+                    stock[index] += productadd;
+                    break;
+                }
+
+                System.out.println("NO NEGATIVE VALLUE");
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int choice = 0;
+
+        int searchchoice = 0;
 
         // arrays for product
 
@@ -124,12 +221,11 @@ public class Main {
         String[] productName = new String[100];
         double[] price = new double[100];
         int[] stock = new int[100];
-        int[] totalSold = new int[100];
 
         int productcount = 0;
 
         do {
-            choice  = menu(choice, input);
+            choice = menu(choice, input);
 
             switch (choice) {
                 case 1:
@@ -150,12 +246,27 @@ public class Main {
                         System.out.println("EMPTY. ADD FIRST");
                         break;
                     }
+
+                    searchchoice = Search_submenu(searchchoice);
+                    if (searchchoice == 1) {
+                        Searchby_ID(productId, productName, price, stock, productcount, input);
+                    } else if (searchchoice == 2) {
+                        Searchby_Name(productId, productName, price, stock, productcount, input);
+                    } else if (searchchoice == 3) {
+                        break;
+                    } else {
+                        System.out.println("INVALID INPUT ");
+                        break;
+                    }
                     break;
                 case 4:
                     if (Check_Empty(productcount)) {
                         System.out.println("EMPTY. ADD FIRST");
                         break;
                     }
+
+                    ReStock(stock, productId, productcount, input);
+
                     break;
                 case 5:
                     if (Check_Empty(productcount)) {
