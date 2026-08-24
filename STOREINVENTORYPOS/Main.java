@@ -209,6 +209,60 @@ public class Main {
         }
     }
 
+    public static void Sell_Product(int productcount, String[] productId, String[] productName, double[] price, int[] stock,Scanner input
+        ,int[] totalSold
+    ) {
+         String id;
+        boolean isfound = false;
+        int productadd = 0;
+        int index = 0;
+        int quantity = 0;
+        double subtotal = 0;
+
+        System.out.println("ENTER PRODUCT ID");
+        id = input.next();
+
+        for (int i = 0; i < productcount; i++) {
+            if (id.equals(productId[i])) {
+                System.out.println("PRODUCT FOUND");
+                System.out.println("PRODUCT: " + productName[i]);
+                System.out.println("PRODUCT PRICE: " + price[i]);
+                System.out.println("CURRENT STOCKS: " + stock[i]);
+                index = i;
+                isfound = true;
+                break;
+            }
+        }
+
+        if (!isfound) {
+            System.out.println("NOT FOUND");
+        } else {
+            while(true) {
+                System.out.println("ENTER QUANITY TO SELL: ");
+                quantity = input.nextInt();
+                
+                if(quantity <= stock[index]) {
+                    subtotal = price[index] * quantity;
+                    totalSold[index] += quantity;
+                    stock[index]-= quantity;
+                    break;
+                }
+
+                System.out.println("INSUFICIENT STOCKS");
+            }
+
+            System.out.println("====SALES====");
+            System.out.println("PRODUCT " + productName[index]);
+            System.out.println("QUANTITY" + quantity);
+            System.out.println("PRICE" + price[index]);
+            System.out.println("TOTAL" + subtotal);
+
+            System.out.println();
+            System.out.println("SALES SUCCESSFUll");
+
+        }
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int choice = 0;
@@ -274,6 +328,8 @@ public class Main {
                         System.out.println("EMPTY. ADD FIRST");
                         break;
                     }
+
+                    Sell_Product(productcount, productId, productName, price, stock, input, totalSold);
                     break;
                 case 6:
                     if (Check_Empty(productcount)) {

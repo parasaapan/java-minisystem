@@ -350,7 +350,7 @@ public class Main {
 
                     choicemenu = Sortmenu(choicemenu, input);
                     if(choicemenu == 1) {
-                        SortGrade(grade);   
+                         
                     } else if (choicemenu == 2) {
 
                     } else {
