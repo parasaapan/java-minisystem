@@ -343,19 +343,6 @@ public class Main {
 
                 case 6:
 
-                    if(CheckStudent(studentcount)) {
-                        System.out.println("NO STUDENT ADD FIRST");
-                        break;
-                    }
-
-                    choicemenu = Sortmenu(choicemenu, input);
-                    if(choicemenu == 1) {
-                         
-                    } else if (choicemenu == 2) {
-
-                    } else {
-                        System.out.println("INVALID INPUUT");
-                    }
  
 
                     break;

@@ -214,7 +214,6 @@ public class Main {
     ) {
          String id;
         boolean isfound = false;
-        int productadd = 0;
         int index = 0;
         int quantity = 0;
         double subtotal = 0;
