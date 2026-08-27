@@ -3,7 +3,7 @@
 Ito ang OOP path natin. Hindi natin isi-skip yung important Java concepts.
 
 Part A — Foundation
-Classes & Objects ← 
+Classes & Objects --------------done
 Fields / Instance Variables
 Constructors
 this

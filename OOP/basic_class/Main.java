@@ -47,8 +47,9 @@ public class Main {
     Student[] students = new Student[2];
 
         for(int i = 0 ; i < 2; i++) {
-            students[i] = new Student();
-            
+            students[i] = new Student(); // why this? 
+            // you need to point each index to the object
+
             System.out.println("STUDENT " + (i + 3));
             System.out.print("Name: ");
             students[i].name = input.next();
