@@ -14,7 +14,7 @@ class Student {
         this.grade = grade;
     }
 
-    void printInfo() {
+    public  void printInfo() {
         System.out.println("Name " + name);
         System.out.println("Age " + age);
         System.out.println("Grade " + grade);
