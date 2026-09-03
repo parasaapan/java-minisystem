@@ -4,22 +4,22 @@ Ito ang OOP path natin. Hindi natin isi-skip yung important Java concepts.
 
 Part A — Foundation
 Classes & Objects --------------done
-Fields / Instance Variables
-Constructors
-this
-Reference variables
-Objects and memory
+Fields / Instance Variables --- done 
+Constructors -- done
+this -- done 
+Reference variables -- done
+Objects and memory -- done
 null
-Primitive vs Reference Types
-Object equality: == vs .equals()
+Primitive vs Reference Types -- done
+Object equality: == vs .equals() -- done
 String immutability
 final
 Mutable vs immutable objects
 Part B — Encapsulation
-Access modifiers
-private
-Getters & Setters
-Constructor validation
+Access modifiers -- done
+private -- done
+Getters & Setters -- done
+Constructor validation -- done
 Encapsulation vs simply using getters/setters
 Part C — Inheritance
 extends

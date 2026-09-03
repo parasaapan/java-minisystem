@@ -128,8 +128,8 @@ public class Main {
                     if (!account1.checkPin(input)) {
                         break;
                     }
-
-                    account1.getBalance();
+                    System.out.println("BALANCE: " + account1.getBalance());
+                    
                     break;
                 case 4:
                     if (!account1.checkPin(input)) {
