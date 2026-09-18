@@ -9,7 +9,7 @@ Constructors -- done
 this -- done 
 Reference variables -- done
 Objects and memory -- done
-null
+null -- done
 Primitive vs Reference Types -- done
 Object equality: == vs .equals() -- done
 String immutability
@@ -20,7 +20,7 @@ Access modifiers -- done
 private -- done
 Getters & Setters -- done
 Constructor validation -- done
-Encapsulation vs simply using getters/setters
+Encapsulation vs simply using getters/setters -- done
 Part C — Inheritance
 extends
 super
