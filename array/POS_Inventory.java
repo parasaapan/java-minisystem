@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class POS_Inventory {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
+        
         ArrayList<String> productName = new ArrayList<>(Arrays.asList("Rice", "Bread", "Coke",
                 "Milk", "Soap", "Shampoo"));
         ArrayList<Double> prices = new ArrayList<>(Arrays.asList(50.0, 45.0, 40.0, 95.0, 35.0, 120.0));
@@ -28,7 +28,7 @@ public class POS_Inventory {
         int currentMinute = 0;
 
         System.out.println("======== STORE STARTUP ==========");
-
+        
         // validating hour and minute
         while (true) {
             boolean isValid = false;
