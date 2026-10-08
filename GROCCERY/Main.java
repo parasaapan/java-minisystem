@@ -1,3 +1,4 @@
+package GROCCERY;
 import java.util.Scanner;
 
 public class Main {

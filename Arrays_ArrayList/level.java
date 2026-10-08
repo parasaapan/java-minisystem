@@ -34,7 +34,10 @@ public class level {
         int currentMinute = 0;
         String shopinfo = "";
 
-              double subtotalCart = 0;
+        double subTotal = 0;
+
+        double payment = 0;
+        double change = 0;
 
         do {
             if (currenthour >= 16) {
@@ -56,6 +59,7 @@ public class level {
             System.out.println("5.UPDATE PRODUCT");
             System.out.println("6.UPDATE STORE TIME");
             System.out.println("7.BUY PRODUCT");
+            System.out.println("8.PAYMENT");
             System.out.println("9 EXIT");
             System.out.print("ENTER CHOICE: ");
             choice = input.nextInt();
@@ -268,9 +272,11 @@ public class level {
                     break;
 
                 case 7:
-                    int productnum = 0;
+                    double subtotalCart = 0;
+
+                    int productnum = 0; // this is when the user enter the product name
                     System.out.println("\n--------------------------");
-                    for (int i = 0; i < productNames.size(); i++) {
+                    for (int i = 0; i < productNames.size(); i++) { // this is for the product name to be printed
                         System.out.printf("%-1s %-11s %-10.2f%n",
                                 i + 1,
                                 productNames.get(i),
@@ -280,7 +286,7 @@ public class level {
                     System.out.println("-----------------------------");
 
                     while (true) {
-                        System.out.print("ENTER PRODUCT NUMBER: ");
+                        System.out.print("ENTER PRODUCT NUMBER: "); // user will enter product number
                         productnum = input.nextInt();
 
                         if (productnum >= 1 && productnum <= productNames.size()) {
@@ -290,54 +296,120 @@ public class level {
                         System.out.println("INVALID PRODUCT NUMBER TRY AGAIN\n");
                     }
 
-                    boolean isduplicate = false;
-                    int QUANTITY = 0;
+                    boolean isduplicate = false; // this boolean is to check if the product is duplicate
 
-                    while(true) {
-                    System.out.print("ENTER QUANTITY: ");
-                    QUANTITY = input.nextInt();
+                    int QUANTITY = 0; // quantity to be enter
 
-                    if(QUANTITY > 0 && QUANTITY <= tempCartStore.get(productnum - 1)) {
-                        break;
+                    while (true) {
+                        System.out.print("ENTER QUANTITY: ");
+                        QUANTITY = input.nextInt();
+
+                        if (QUANTITY > 0 && QUANTITY <= tempCartStore.get(productnum - 1)) { // the tmepcart store will
+                                                                                             // store the stocks in a
+                                                                                             // cart temp storage
+                            break;
+                        }
+
+                        System.out.println("CANNOT BE NEGATIVE AND CCANNOT BE GREATER THAN TLHE STOCKS\n" +
+                                "CURRENT STOCKS " + tempCartStore.get(productnum - 1));
+
                     }
 
-                    System.out.println("CANNOT BE NEGATIVE AND CCANNOT BE GREATER THAN TLHE STOCKS\n"+ 
-                    "CURRENT STOCKS " + tempCartStore.get(productnum - 1));
-
-                    }
-                    
                     // adding the cartquantities if its duplicate
-                    for(int i = 0 ; i < cartProductIndexes.size(); i++) {
-                        if(cartProductIndexes.get(i) == productnum - 1) {
+                    for (int i = 0; i < cartProductIndexes.size(); i++) {
+                        if (cartProductIndexes.get(i) == productnum - 1) {
                             cartQuantities.set(i, cartQuantities.get(i) + QUANTITY);
                             isduplicate = true;
                         }
                     }
                     // iifi not duplicate add another set of product in the cart
-                    if(!isduplicate) {
+                    if (!isduplicate) {
                         cartProductIndexes.add(productnum - 1);
                         cartQuantities.add(QUANTITY);
-                       
+
                     }
- 
-                    tempCartStore.set(productnum- 1, tempCartStore.get(productnum - 1) - QUANTITY);
-                  
+                    // the productnum -1 is for us to access the original index
+                    tempCartStore.set(productnum - 1, tempCartStore.get(productnum - 1) - QUANTITY);
+
                     System.out.println("\n==========================");
                     System.out.printf("%-11s %-11s %-11s%n",
-                        "PRODUCT", "QUANTITY", "PRICE"
-                    );
-                    for(int i = 0 ; i < cartProductIndexes.size(); i++) {
-                         System.out.printf("%-11s %-11d %-11.2f%n",
-                         productNames.get(cartProductIndexes.get(i)),
-                         cartQuantities.get(i),
-                         prices.get(cartProductIndexes.get(i))
-                      
-                    );
-                      subtotalCart += prices.get(cartProductIndexes.get(i)) * QUANTITY;
+                            "PRODUCT", "QUANTITY", "PRICE");
+                    for (int i = 0; i < cartProductIndexes.size(); i++) {
+                        System.out.printf("%-11s %-11d %-11.2f%n",
+                                productNames.get(cartProductIndexes.get(i)),
+                                cartQuantities.get(i),
+                                prices.get(cartProductIndexes.get(i))
 
-                    } 
+                        );
+                        // compute the subtotal then add it to the subtotal per index
+
+                        subtotalCart += prices.get(cartProductIndexes.get(i)) * QUANTITY;
+
+                    }
                     System.out.println("==============================");
                     System.out.println("SUBTOTAL: " + subtotalCart);
+                    break;
+
+                case 8:
+                    if (cartProductIndexes.isEmpty()) {
+                        System.out.println("CART IS EMPTY");
+                        System.out.println("CANNOT PROCEED TO PAYMENT");
+                        break;
+                    }
+
+                    if (shopinfo.equals("CLOSED")) {
+                        System.out.println("SHOP IS CLOSED.");
+                        System.out.println("CANNOT PROCEED TO PAYMENT");
+                        break;
+                    }
+
+                    subTotal = 0; // each time the product go in this the subtotal will be reset at zero
+                    // instead of adding it infinite
+
+                    for (int i = 0; i < cartProductIndexes.size(); i++) {
+                        subTotal += prices.get(cartProductIndexes.get(i)) * cartQuantities.get(i);
+                    }
+
+                    for (int i = 0; i < cartProductIndexes.size(); i++) {
+                        System.out.printf("%-12s x %-2d = %-10.2f%n",
+                                productNames.get(cartProductIndexes.get(i)),
+                                cartQuantities.get(i),
+                                prices.get(cartProductIndexes.get(i)) * cartQuantities.get(i));
+                    }
+
+                    System.out.println("--------------------------------------");
+                    System.out.println("SUBTOTAL = " + subTotal);
+
+                    System.out.println("========== PAYMENT ===========");
+                    while (true) {
+                        System.out.print("ENTER PAYMENT: ");
+                        payment = input.nextDouble();
+                        if (payment >= subTotal) {
+                            System.out.println("SUCCESS FULL PAYMENT");
+                            break;
+                        }
+
+                        System.out.println("INVALID PAYMENT");
+
+                    }
+
+                    change = payment - subTotal;
+
+                    System.out.println("YOUR CHANGE: " + change);
+
+
+                    // update the daily sold
+                    for(int i = 0 ; i < cartProductIndexes.size(); i ++) {
+                        dailySoldQuantities.set(cartProductIndexes.get(i), dailySoldQuantities.get(cartProductIndexes.get(i)) + cartQuantities.get(i));
+                    } 
+
+                   for(int i = 0 ; i < cartProductIndexes.size(); i++) {
+                    stocks.set(cartProductIndexes.get(i), stocks.get(cartProductIndexes.get(i)) - cartQuantities.get(i) );
+                   }
+                     
+                    cartProductIndexes.clear();
+                    cartQuantities.clear();
+                    
                     break;
                 case 9:
                     System.out.println("EXiT");
